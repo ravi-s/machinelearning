@@ -1,3 +1,4 @@
+
 const draw = {};
 draw.path = (ctx, path, color = "black") => {
     ctx.strokeStyle = color;
@@ -17,4 +18,7 @@ draw.paths = function (ctx, paths, color = "black") {
         draw.path(ctx, path, color);
     }
 
+}
+if (typeof module !== 'undefined') {
+    module.exports = draw;
 }
