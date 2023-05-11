@@ -6,5 +6,6 @@ constants.JSON_DIR = constants.DATSET_DIR + '/json';
 constants.IMG_DIR = constants.DATSET_DIR + '/img';
 constants.SAMPLES = constants.DATSET_DIR + "/samples.json";
 
+
 if (typeof module !== 'undefined')
     module.exports = constants;
