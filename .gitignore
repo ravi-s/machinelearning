@@ -8585,3 +8585,12 @@ node/node_modules/yallist/package.json
 node/node_modules/yallist/README.md
 node/node_modules/yallist/yallist.js
 common/js_objects/samples.js
+node/node_modules/canvas/build/binding.Makefile
+node/node_modules/canvas/build/canvas-postbuild.target.mk
+node/node_modules/canvas/build/canvas.target.mk
+node/node_modules/canvas/build/config.gypi
+node/node_modules/canvas/build/gyp-mac-tool
+node/node_modules/canvas/build/Makefile
+node/node_modules/canvas/build/node_gyp_bins/python3
+node/node_modules/canvas/build/Release/canvas-postbuild.node
+node/node_modules/canvas/build/Release/.deps/Release/canvas-postbuild.node.d
