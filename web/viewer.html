@@ -9,12 +9,18 @@
 	<body>
 		<h1>Data Viewer</h1>
 		<div id="container"></div>
-		<script src="../common/js_objects/samples.js" />
-		<script src="../common/constants.js" />
-		<script src="../common/utils.js" />
+		<script src="../common/js_objects/samples.js"></script>
+		<script src="../common/constants.js"></script>
+		<script src="../common/utils.js"></script>
+		<script src="js/display.js"></script>
 		<script>
-			console.log("Does this work?");
-			console.log(samples);
+			const groups = utils.groupBy(samples, "student_id");
+			for (let student_id in groups) {
+				const samples = groups[student_id];
+				const studentName = samples[0].student_name;
+				container = document.getElementById("container");
+				createRow(container, studentName, samples);
+			}
 		</script>
 	</body>
 </html>
