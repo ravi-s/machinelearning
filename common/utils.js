@@ -21,5 +21,6 @@ utils.groupBy = (objArray, key) => {
     }
     return groups;
 }
+utils.flaggedUsers = [1663882102141, 1663900040545, 16644855938220]
 if (typeof module !== 'undefined')
     module.exports = utils;
