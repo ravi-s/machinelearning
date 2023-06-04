@@ -21,6 +21,16 @@ utils.groupBy = (objArray, key) => {
     }
     return groups;
 }
+utils.styles = {
+    'car': 'gray',
+    'fish': 'red',
+    'house': 'yellow',
+    'tree': 'green',
+    'bicycle': 'cyan',
+    'guitar': 'blue',
+    'pencil': 'magenta',
+    'clock': 'lightgray',
+};
 utils.flaggedUsers = [1663882102141, 1663900040545, 16644855938220]
 if (typeof module !== 'undefined')
     module.exports = utils;
