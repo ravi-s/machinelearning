@@ -12,6 +12,8 @@ function createRow(container, studentName, samples) {
 
         const sampleContainer = document.createElement('div');
         sampleContainer.id = 'sample_' + id;
+
+        sampleContainer.onclick = () => handleClick(sample, false);
         sampleContainer.classList.add('sampleContainer');
         const sampleLabel = document.createElement('div');
         sampleLabel.innerHTML = label;
@@ -30,17 +32,30 @@ function createRow(container, studentName, samples) {
 
 
 }
-function handleClick(sample) {
+function handleClick(sample, doScroll = true) {
+    if (sample == null) {
+        const emphasized = [...document.querySelectorAll('.emphasize')];
+        emphasized.forEach(element => {
+            element.classList.remove('emphasize');
+        });
+        return;
+    }
+    const el = document.getElementById("sample_" + sample.id);
+    if (el.classList.contains('emphasize')) {
+        el.classList.remove('emphasize');
+        chart.selectSample(null);
+        return;
+    }
     const emphasized = [...document.querySelectorAll('.emphasize')];
     emphasized.forEach(element => {
         element.classList.remove('emphasize');
     });
-    const el = document.getElementById("sample_" + sample.id);
     el.classList.add("emphasize");
-    el.scrollIntoView({
-        behavior: 'auto',
-        block: 'center',
-    })
-    // console.log(el);
-
+    if (doScroll) {
+        el.scrollIntoView({
+            behavior: 'auto',
+            block: 'center',
+        })
+    }
+    chart.selectSample(sample)
 }
