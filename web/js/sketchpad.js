@@ -18,7 +18,7 @@ class SketchPad {
 
         this.ctx = this.canvas.getContext("2d");
         this.#addEventListeners();
-        this.update = onUpdate;
+        this.onUpdate = onUpdate;
         this.reset();
     }
     reset() {
@@ -77,6 +77,9 @@ class SketchPad {
         else {
             this.undoBtn.disabled = true;
         }
+        this.triggerUpdate();
+    }
+    triggerUpdate() {
         if (this.onUpdate) {
             this.onUpdate(this.paths);
         }
