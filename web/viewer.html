@@ -52,10 +52,12 @@
 			sketchpad.canvas.style.cssText += "outline:1000px solid rgb(0,0,0,0.7);";
 
 			function onDrawingUpdate(paths) {
-				const point = [
+				const functions = featureFunctions.inUse.map((f) => f.function);
+				point = functions.map((f) => f(paths));
+				/* const point = [
 					featureFunctions.getPathCount(paths),
 					featureFunctions.getPointCount(paths),
-				];
+				]; */
 				chart.showDynamicPoint(point);
 			}
 		</script>

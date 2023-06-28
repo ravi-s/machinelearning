@@ -23,6 +23,10 @@ featureFunctions.getHeight = (paths) => {
     const max = Math.max(...y);
     return max - min;
 }
+featureFunctions.inUse = [
+    { name: 'Width', function: featureFunctions.getWidth },
+    { name: 'Height', function: featureFunctions.getHeight },
+];
 if (typeof module !== 'undefined') {
     module.exports = featureFunctions;
 }
