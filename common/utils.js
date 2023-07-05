@@ -31,6 +31,29 @@ utils.styles = {
     'pencil': { color: 'magenta', text: '✏️' },
     'clock': { color: 'lightgray', text: '⏱️' },
 };
-utils.flaggedUsers = [1663882102141, 1663900040545, 16644855938220]
+utils.flaggedUsers = [1663882102141, 1663900040545, 16644855938220];
+
+utils.distance = (p1, p2) => {
+    return Math.sqrt(
+        (p1[0] - p2[0]) ** 2 +
+        (p1[1] - p2[1]) ** 2
+    );
+}
+utils.getNearest = (loc, points) => {
+    let minDist = Number.MAX_SAFE_INTEGER;
+    let nearestIndex = 0;
+
+    for (let i = 0; i < points.length; i++) {
+        const point = points[i];
+        const d = utils.distance(loc, point);
+
+        if (d < minDist) {
+            minDist = d;
+            nearestIndex = i;
+        }
+    }
+    return nearestIndex;
+}
+
 if (typeof module !== 'undefined')
     module.exports = utils;
