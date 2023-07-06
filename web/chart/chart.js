@@ -8,6 +8,7 @@ class Chart {
       this.onClick = onClick;
 
       this.dynamicPoint = null;
+      this.nearestSample = null;
 
       this.canvas = document.createElement("canvas");
       this.canvas.width = options.size;
@@ -43,8 +44,9 @@ class Chart {
       this.#addEventListeners();
    }
 
-   showDynamicPoint(point, label) {
+   showDynamicPoint(point, label, nearest) {
       this.dynamicPoint = { point, label };
+      this.nearestSample = nearest;
       this.#draw();
 
    }
@@ -248,6 +250,7 @@ class Chart {
       }
       if (this.dynamicPoint) {
          const { point, label } = this.dynamicPoint;
+
          const pixelLoc = math.remapPoint(
             this.dataBounds,
             this.pixelBounds,
@@ -255,8 +258,15 @@ class Chart {
          );
 
          graphics.drawPoint(ctx, pixelLoc, 'rgba(255,255,255,0.7', 1000000);
-         console.log(this.styles[label]);
-         // graphics.drawImage(ctx, this.styles[label].text, pixelLoc);
+         ctx.beginPath();
+         ctx.moveTo(...pixelLoc);
+         ctx.lineTo(...math.remapPoint(
+            this.dataBounds,
+            this.pixelBounds,
+            this.nearestSample.point,
+         ));
+         ctx.stroke();
+         graphics.drawImage(ctx, this.styles[label].image, pixelLoc);
 
       }
       this.#drawAxes();
