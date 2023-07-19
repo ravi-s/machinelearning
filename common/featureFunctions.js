@@ -24,11 +24,12 @@ featureFunctions.getHeight = (paths) => {
     return max - min;
 }
 featureFunctions.inUse = [
-    { name: "Path Count", function: featureFunctions.getPathCount },
-    { name: 'Point Count', function: featureFunctions.getPointCount },
+    /* { name: "Path Count", function: featureFunctions.getPathCount },
+    { name: 'Point Count', function: featureFunctions.getPointCount }, */
+    { name: 'Width', function: featureFunctions.getWidth },
+    { name: 'Height', function: featureFunctions.getHeight },
 ];
-/* { name: 'Width', function: featureFunctions.getWidth },
-{ name: 'Height', function: featureFunctions.getHeight }, */
+
 
 if (typeof module !== 'undefined') {
     module.exports = featureFunctions;

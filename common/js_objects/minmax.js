@@ -1,1 +1,1 @@
-const minMax = {"min":[1,10],"max":[216,15162]};
+const minMax = {"min":[15,15],"max":[968,451]};
