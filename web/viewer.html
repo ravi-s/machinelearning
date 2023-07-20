@@ -63,20 +63,27 @@
 					featureFunctions.getPointCount(paths),
 				]; */
 
-				const { label, nearestSample } = classify(point);
+				const { label, nearestSamples } = classify(point);
 				predictedLabelContainer = document.getElementById(
 					"predictedLabelContainer"
 				);
 				predictedLabelContainer.innerHTML = "Is it a " + label + "?";
-				chart.showDynamicPoint(point, label, nearestSample);
+				chart.showDynamicPoint(point, label, nearestSamples);
 			}
 			function classify(point) {
 				const samplePoints = samples.map((s) => s.point);
-				const index = utils.getNearest(point, samplePoints);
-				const nearestSample = samples[index];
+				const indices = utils.getNearest(point, samplePoints, 7);
+				const nearestSamples = indices.map((i) => samples[i]);
+				const labels = nearestSamples.map((s) => s.label);
+				const counts = {};
+				for (let label of labels) {
+					counts[label] = counts[label] ? counts[label] + 1 : 1;
+				}
+				const max = Math.max(...Object.values(counts));
+				const label = labels.find((l) => counts[l] == max);
 				return {
-					label: nearestSample.label,
-					nearestSample,
+					label,
+					nearestSamples,
 				};
 			}
 		</script>
