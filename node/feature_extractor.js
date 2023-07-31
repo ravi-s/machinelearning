@@ -21,11 +21,10 @@ for (const sample of samples) {
     // sample.point = [featureFunctions.getPathCount(paths),
     // featureFunctions.getPointCount(paths)];
 }
-const minMax = utils.normalizePoints(samples.map(s => s.point));
+
 const featureNames = featureFunctions.inUse.map(f => f.name);
-
-
 console.log('Generating Training/Testing Splits');
+
 const trainingAmount = samples.length * 0.5;
 const training = [];
 const testing = new Array();
@@ -38,6 +37,9 @@ for (let i = 0; i < samples.length; i++) {
         testing.push(samples[i]);
     }
 }
+const minMax = utils.normalizePoints(training.map(s => s.point));
+utils.normalizePoints(testing.map(s => s.point), minMax);
+
 fs.writeFileSync(
     constants.FEATURES,
     JSON.stringify({

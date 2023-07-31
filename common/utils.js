@@ -30,6 +30,7 @@ utils.styles = {
     'guitar': { color: 'blue', text: '🎸' },
     'pencil': { color: 'magenta', text: '✏️' },
     'clock': { color: 'lightgray', text: '⏱️' },
+    '?': { color: 'red', text: '❓' },
 };
 utils.flaggedUsers = [1663882102141, 1663900040545, 16644855938220];
 

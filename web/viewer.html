@@ -17,7 +17,11 @@
 		</div>
 
 		<div id="container"></div>
+
 		<script src="../common/js_objects/features.js"></script>
+		<script src="../common/js_objects/training.js"></script>
+		<script src="../common/js_objects/testing.js"></script>
+
 		<script src="../common/js_objects/minmax.js"></script>
 
 		<script src="../common/constants.js"></script>
@@ -34,9 +38,22 @@
 
 		<script>
 			const { samples, featureNames } = features;
-			const groups = utils.groupBy(samples, "student_id");
-			for (let student_id in groups) {
-				const samples = groups[student_id];
+			const trainingSamples = training.samples;
+			const testingSamples = testing.samples;
+			for (const testSample of testingSamples) {
+				testSample.truth = testSample.label;
+				testSample.label = "?";
+			}
+			const trainingGroups = utils.groupBy(trainingSamples, "student_id");
+			for (let student_id in trainingGroups) {
+				const samples = trainingGroups[student_id];
+				const studentName = samples[0].student_name;
+				container = document.getElementById("container");
+				createRow(container, studentName, samples);
+			}
+			const testingGroups = utils.groupBy(testingSamples, "student_id");
+			for (let student_id in testingGroups) {
+				const samples = testingGroups[student_id];
 				const studentName = samples[0].student_name;
 				container = document.getElementById("container");
 				createRow(container, studentName, samples);
@@ -50,9 +67,15 @@
 			};
 			// Fill the chart above with images using utils object.
 			graphics.generateImages(utils.styles);
-			const chart = new Chart(chartContainer, samples, options, handleClick);
+			const chart = new Chart(
+				chartContainer,
+				trainingSamples,
+				options,
+				handleClick
+			);
 			const sketchpad = new SketchPad(inputContainer, onDrawingUpdate);
 			sketchpad.canvas.style.cssText += "outline:1000px solid rgb(0,0,0,0.7);";
+			toggleInput();
 
 			function onDrawingUpdate(paths) {
 				const functions = featureFunctions.inUse.map((f) => f.function);
@@ -71,9 +94,9 @@
 				chart.showDynamicPoint(point, label, nearestSamples);
 			}
 			function classify(point) {
-				const samplePoints = samples.map((s) => s.point);
+				const samplePoints = trainingSamples.map((s) => s.point);
 				const indices = utils.getNearest(point, samplePoints, 7);
-				const nearestSamples = indices.map((i) => samples[i]);
+				const nearestSamples = indices.map((i) => trainingSamples[i]);
 				const labels = nearestSamples.map((s) => s.label);
 				const counts = {};
 				for (let label of labels) {
