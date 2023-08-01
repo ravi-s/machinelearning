@@ -43,6 +43,9 @@
 			for (const testSample of testingSamples) {
 				testSample.truth = testSample.label;
 				testSample.label = "?";
+				const { label } = classify(testSample.point);
+				testSample.label = label;
+				testSample.correct = testSample.label === testSample.truth;
 			}
 			const trainingGroups = utils.groupBy(trainingSamples, "student_id");
 			for (let student_id in trainingGroups) {
@@ -51,6 +54,9 @@
 				container = document.getElementById("container");
 				createRow(container, studentName, samples);
 			}
+			const subTitle = document.createElement("h2");
+			subTitle.innerHTML = "Testing Set";
+			container.appendChild(subTitle);
 			const testingGroups = utils.groupBy(testingSamples, "student_id");
 			for (let student_id in testingGroups) {
 				const samples = testingGroups[student_id];
