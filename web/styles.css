@@ -104,3 +104,8 @@ button:disabled:hover {
     position: relative;
 
 }
+
+#statistics {
+    font-size: 20px;
+    padding: 5%
+}
