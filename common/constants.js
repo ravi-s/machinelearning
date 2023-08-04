@@ -14,6 +14,7 @@ constants.FEATURES_JS = constants.JS_OBJECTS + '/features.js';
 constants.TRAINING_JS = constants.JS_OBJECTS + '/training.js';
 constants.TESTING_JS = constants.JS_OBJECTS + '/testing.js';
 constants.MIN_MAX_JS = constants.JS_OBJECTS + '/minmax.js';
+constants.DECISION_BOUNDARY = constants.DATSET_DIR + '/decision_boundary.png';
 
 
 if (typeof module !== 'undefined')

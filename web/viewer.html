@@ -29,6 +29,7 @@
 		<script src="../common/utils.js"></script>
 		<script src="../common/draw.js"></script>
 		<script src="../common/featureFunctions.js"></script>
+		<script src="../common/classifiers/knn.js"></script>
 
 		<script src="js/display.js"></script>
 		<script src="js/sketchpad.js"></script>
@@ -43,6 +44,7 @@
 			const testingSamples = testing.samples;
 
 			const k = 50;
+			const kNN = new KNN(trainingSamples, k);
 			// For statistics calculations
 			let correctCount = 0;
 			let totalCount = 0;
@@ -50,7 +52,7 @@
 			for (const testSample of testingSamples) {
 				testSample.truth = testSample.label;
 				testSample.label = "?";
-				const { label } = classify(testSample.point);
+				const { label } = kNN.predict(testSample.point);
 				testSample.label = label;
 				testSample.correct = testSample.label === testSample.truth;
 				totalCount++;
@@ -109,14 +111,14 @@
 					featureFunctions.getPointCount(paths),
 				]; */
 
-				const { label, nearestSamples } = classify(point);
+				const { label, nearestSamples } = kNN.predict(point);
 				predictedLabelContainer = document.getElementById(
 					"predictedLabelContainer"
 				);
 				predictedLabelContainer.innerHTML = "Is it a " + label + "?";
 				chart.showDynamicPoint(point, label, nearestSamples);
 			}
-			function classify(point) {
+			/* function classify(point) {
 				const samplePoints = trainingSamples.map((s) => s.point);
 				const indices = utils.getNearest(point, samplePoints, k);
 				const nearestSamples = indices.map((i) => trainingSamples[i]);
@@ -131,7 +133,7 @@
 					label,
 					nearestSamples,
 				};
-			}
+			} */
 		</script>
 	</body>
 </html>
