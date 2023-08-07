@@ -6,6 +6,7 @@ class Chart {
       this.styles = options.styles;
       this.icon = options.icon;
       this.onClick = onClick;
+      this.bg = options.bg;
 
       this.dynamicPoint = null;
       this.nearestSamples = null;
@@ -17,6 +18,7 @@ class Chart {
       container.appendChild(this.canvas);
 
       this.ctx = this.canvas.getContext("2d");
+      this.ctx.imageSmoothingEnabled = false;
 
       this.margin = options.size * 0.11;
       this.transparency = options.transparency || 1;
@@ -237,7 +239,13 @@ class Chart {
    #draw() {
       const { ctx, canvas } = this;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+      const topLeft = math.remapPoint(
+         this.dataBounds,
+         this.pixelBounds,
+         [0, 1]
+      );
+      const sz = (canvas.width - this.margin * 2) / this.dataTrans.scale ** 2;
+      ctx.drawImage(this.bg, ...topLeft, sz, sz);
       ctx.globalAlpha = this.transparency;
       this.#drawSamples(this.samples);
       ctx.globalAlpha = 1;
